@@ -4,7 +4,7 @@ import Container from '../components/ui/Container';
 import Button from '../components/ui/Button';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase'; // Asegúrate de tener este archivo configurado
+import { auth, db } from '../firebase';
 
 const Signup: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -49,7 +49,12 @@ const Signup: React.FC = () => {
 
       setSuccess('Cuenta creada correctamente');
     } catch (err: any) {
-      setError(err.message);
+      if (err.code === 'auth/email-already-in-use') {
+        setError('El correo ya está registrado. ¿Quieres iniciar sesión?');
+      } else {
+        setError(err.message);
+      }
+      setSuccess('');
     }
   };
 
