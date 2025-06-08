@@ -27,11 +27,13 @@ const Signup: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Limpia mensajes anteriores
     setError('');
     setSuccess('');
 
     try {
-      // Crea usuario con Firebase Auth
+      // Crear usuario con Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         formData.email,
@@ -40,7 +42,7 @@ const Signup: React.FC = () => {
 
       const user = userCredential.user;
 
-      // Guarda rol en Firestore
+      // Guardar en Firestore
       await setDoc(doc(db, 'usuarios', user.uid), {
         email: formData.email,
         rol: formData.rol,
@@ -54,7 +56,7 @@ const Signup: React.FC = () => {
       } else {
         setError(err.message);
       }
-      setSuccess('');
+      setSuccess(''); // Limpia success si hay error
     }
   };
 
@@ -120,8 +122,12 @@ const Signup: React.FC = () => {
                 Crear
               </Button>
 
-              {error && <p className="text-red-500 text-center">{error}</p>}
-              {success && <p className="text-green-500 text-center">{success}</p>}
+              {/* Mensaje exclusivo */}
+              {error ? (
+                <p className="text-red-500 text-center">{error}</p>
+              ) : success ? (
+                <p className="text-green-500 text-center">{success}</p>
+              ) : null}
 
               <p className="text-center text-sm text-gray-600 dark:text-gray-400">
                 Ya tienes cuenta?{' '}
