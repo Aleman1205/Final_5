@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // ← agrega useNavigate
 import Container from '../components/ui/Container';
 import Button from '../components/ui/Button';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -7,6 +7,8 @@ import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 
 const Signup: React.FC = () => {
+  const navigate = useNavigate(); // ← inicializa navigate
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -27,13 +29,10 @@ const Signup: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Limpia mensajes anteriores
     setError('');
     setSuccess('');
 
     try {
-      // Crear usuario con Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         formData.email,
@@ -42,7 +41,6 @@ const Signup: React.FC = () => {
 
       const user = userCredential.user;
 
-      // Guardar en Firestore
       await setDoc(doc(db, 'usuarios', user.uid), {
         email: formData.email,
         rol: formData.rol,
@@ -50,13 +48,14 @@ const Signup: React.FC = () => {
       });
 
       setSuccess('Cuenta creada correctamente');
+      setTimeout(() => navigate('/'), 1000); // ← redirige al home después de 1s
     } catch (err: any) {
       if (err.code === 'auth/email-already-in-use') {
         setError('El correo ya está registrado. ¿Quieres iniciar sesión?');
       } else {
         setError(err.message);
       }
-      setSuccess(''); // Limpia success si hay error
+      setSuccess('');
     }
   };
 
@@ -122,7 +121,7 @@ const Signup: React.FC = () => {
                 Crear
               </Button>
 
-              {/* Mensaje exclusivo */}
+              {/* Mostrar solo un mensaje a la vez */}
               {error ? (
                 <p className="text-red-500 text-center">{error}</p>
               ) : success ? (
