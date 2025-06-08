@@ -35,6 +35,7 @@ const Login: React.FC = () => {
       }, 1000);
     } catch (err: any) {
       setError(err.message);
+      setSuccess('');
     }
   };
 
@@ -84,8 +85,12 @@ const Login: React.FC = () => {
                 Iniciar sesión
               </Button>
 
-              {error && <p className="text-red-500 text-center">{error}</p>}
-              {success && <p className="text-green-500 text-center">{success}</p>}
+              {/* Mostrar solo uno de los mensajes */}
+              {error ? (
+                <p className="text-red-500 text-center">{error}</p>
+              ) : success ? (
+                <p className="text-green-500 text-center">{success}</p>
+              ) : null}
 
               <p className="text-center text-sm text-gray-600 dark:text-gray-400">
                 No tienes cuenta?{' '}
