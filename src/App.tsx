@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -28,37 +28,35 @@ import FAQ from './pages/FAQ';
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <div className="min-h-screen flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
-          <Header />
-          <main className="flex-grow">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/games" element={<Games />} />
-              <Route path="/game" element={<Game />} />
-              <Route path="/characters" element={<Characters />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/forums" element={<Forums />} />
-              <Route path="/discord" element={<Discord />} />
-              <Route path="/events" element={<Events />} />
-              <Route path="/support" element={<Support />} />
-              <Route path="/latest-releases" element={<LatestReleases />} />
-              <Route path="/popular-games" element={<PopularGames />} />
-              <Route path="/game-updates" element={<GameUpdates />} />
-              <Route path="/careers" element={<Careers />} />
-              <Route path="/press-kit" element={<PressKit />} />
-              <Route path="/legal" element={<Legal />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/scoreboard" element={<Scoreboard />} />
-              <Route path="/faq" element={<FAQ />} />
-            </Routes>
-          </main>
-          <Footer />
-          <ChatWidget />
-        </div>
-      </Router>
+      <div className="min-h-screen flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+        <Header />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/games" element={<Games />} />
+            <Route path="/game" element={<Game />} />
+            <Route path="/characters" element={<Characters />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/forums" element={<Forums />} />
+            <Route path="/discord" element={<Discord />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/support" element={<Support />} />
+            <Route path="/latest-releases" element={<LatestReleases />} />
+            <Route path="/popular-games" element={<PopularGames />} />
+            <Route path="/game-updates" element={<GameUpdates />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/press-kit" element={<PressKit />} />
+            <Route path="/legal" element={<Legal />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/scoreboard" element={<Scoreboard />} />
+            <Route path="/faq" element={<FAQ />} />
+          </Routes>
+        </main>
+        <Footer />
+        <ChatWidget />
+      </div>
     </AuthProvider>
   );
 }
