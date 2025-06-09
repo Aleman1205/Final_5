@@ -10,7 +10,7 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const { isLoggedIn, logout } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const Header: React.FC = () => {
   };
 
   const handleAuthAction = () => {
-    if (isLoggedIn) {
+    if (user) {
       logout();
     } else {
       navigate('/login');
@@ -88,7 +88,7 @@ const Header: React.FC = () => {
               {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>
             <Button onClick={handleAuthAction}>
-              {isLoggedIn ? 'Sign Out' : 'Sign In'}
+              {user ? 'Logout' : 'Sign In'}
             </Button>
           </div>
 
@@ -125,7 +125,7 @@ const Header: React.FC = () => {
               ))}
               <div className="px-4 pt-2">
                 <Button onClick={handleAuthAction} className="w-full">
-                  {isLoggedIn ? 'Sign Out' : 'Sign In'}
+                  {user ? 'Logout' : 'Sign In'}
                 </Button>
               </div>
             </nav>
